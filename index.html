@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>考點學習網｜工程圖學與機械製圖</title>
+<style>
+:root{
+  --bg:#f5f6fa;--card:#fff;--ink:#1f2430;--muted:#6b7280;--line:#e2e5ee;
+  --pri:#2f5bea;--pri-soft:#e9eefe;
+  --g:#16a34a;--g-soft:#e6f6ec;--y:#d97706;--y-soft:#fdf3e2;--r:#dc2626;--r-soft:#fdeaea;
+  --rad:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg)}
+body{font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);line-height:1.65;-webkit-tap-highlight-color:transparent}
+#app{max-width:720px;margin:0 auto;padding:16px 16px 56px}
+button{font:inherit;font-size:15px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 14px;min-height:40px}
+button:active{transform:scale(.98)}
+button.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+button.danger{color:var(--r);border-color:#f3c4c4}
+h1{font-size:21px;margin:0;line-height:1.35}
+h2.sec{font-size:16px;color:var(--muted);margin:22px 0 4px;font-weight:600}
+.sub{color:var(--muted);font-size:14px}
+.muted{color:var(--muted)}
+.hero{padding:8px 0 4px}
+.hero h1{font-size:26px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.back{padding:6px 12px;flex:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px 16px;margin:10px 0}
+.row{display:flex;align-items:center;gap:10px}
+.row.wrap{flex-wrap:wrap}
+.between{justify-content:space-between}
+.item{display:flex;align-items:center;gap:12px;cursor:pointer}
+.chev{color:var(--muted);font-size:22px;flex:none}
+.ico{font-size:24px;flex:none}
+.num{width:32px;height:32px;border-radius:10px;background:var(--pri-soft);color:var(--pri);display:grid;place-items:center;font-weight:700;flex:none}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--pri);border-radius:99px}
+.badge{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--pri-soft);color:var(--pri);vertical-align:2px;font-weight:600}
+.badge.adv{background:#f1e8fd;color:#7c3aed}
+.stars{font-weight:700}
+.s1{color:var(--g)}.s2{color:var(--y)}.s3{color:var(--r)}
+.check{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;flex:none;color:#fff}
+.check.on{background:var(--g);border-color:var(--g)}
+.tabs{display:flex;gap:4px;background:#e7e9f1;padding:4px;border-radius:12px;margin:12px 0}
+.tabs button{flex:1;border:none;background:transparent;min-height:36px;padding:6px 8px}
+.tabs button.on{background:var(--card);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.flash{min-height:230px;display:flex;flex-direction:column;justify-content:center;text-align:center;cursor:pointer;user-select:none;-webkit-user-select:none}
+.flash .face{font-size:19px;font-weight:600}
+.flash.back{background:#fafbff;border-color:var(--pri)}
+.flash.back .face{font-size:16px;font-weight:400;text-align:left}
+.ftitle{font-weight:700;color:var(--pri);margin-bottom:6px}
+.hint{color:var(--muted);font-size:12px;margin-top:12px;text-align:center}
+.marks{display:flex;gap:8px;margin-top:10px}
+.marks button{flex:1;padding:8px 4px}
+.mk1.on{background:var(--g);border-color:var(--g);color:#fff}
+.mk2.on{background:var(--y);border-color:var(--y);color:#fff}
+.mk3.on{background:var(--r);border-color:var(--r);color:#fff}
+.dots{display:flex;gap:7px;justify-content:center;margin:6px 0 2px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.v{background:#a3acc6}.dots i.m1{background:var(--g)}.dots i.m2{background:var(--y)}.dots i.m3{background:var(--r)}
+.dots i.cur{outline:2px solid var(--pri);outline-offset:2px}
+.qno{font-size:13px;font-weight:700;color:var(--pri);margin-bottom:4px}
+.opt{display:block;width:100%;text-align:left;margin:7px 0}
+.opt:disabled{cursor:default;color:var(--ink);opacity:1}
+.opt.ok{background:var(--g-soft);border-color:var(--g)}
+.opt.ng{background:var(--r-soft);border-color:var(--r)}
+.fb{font-weight:700;margin-top:8px}.fb.ok{color:var(--g)}.fb.ng{color:var(--r)}
+.explain{background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:15px;white-space:pre-line}
+.ask{margin-top:10px}
+.ask summary{color:var(--pri);cursor:pointer;font-size:14px;font-weight:600}
+.ask textarea{width:100%;min-height:64px;margin:8px 0;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:15px;resize:vertical}
+.note{font-size:13px;color:var(--muted);text-align:center;margin-top:14px}
+.empty{color:var(--muted);text-align:center;padding:18px 0}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#1f2430;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:99;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+/* 關鍵字畫布頁 */
+.kw{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);z-index:10}
+.kw .head{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border-bottom:1px solid var(--line)}
+.tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--line);min-height:52px}
+.tools button{min-height:34px;padding:4px 10px;font-size:14px}
+.tools .sw{width:30px;height:30px;min-height:30px;padding:0;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.tools .sw.on{box-shadow:0 0 0 3px var(--pri)}
+.board{position:relative;flex:0 0 52%;overflow:hidden;touch-action:none;background-color:#fff;background-image:radial-gradient(#dfe3ea 1px,transparent 1px);background-size:22px 22px}
+.board canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.board.pen canvas{z-index:3;cursor:crosshair}
+#chips{position:absolute;inset:0;z-index:2;pointer-events:none}
+.chip{position:absolute;pointer-events:auto;transform:translate(-50%,-50%) scale(var(--s,1));background:var(--pri-soft);color:var(--pri);border:1.5px solid var(--pri);padding:4px 12px;border-radius:99px;white-space:nowrap;font-weight:700;font-size:15px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.chip.sel{background:var(--pri);color:#fff}
+.board.pen .chip{pointer-events:none}
+.board .empty{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:2}
+.kwlist{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 12px 28px}
+.kwlist .in{max-width:720px;margin:0 auto}
+.kwg h3{font-size:14px;color:var(--muted);margin:14px 4px 4px}
+.kchip{margin:4px;padding:6px 12px;border-radius:99px;min-height:36px;font-size:15px}
+.kchip.used{opacity:.4}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
+<input type="file" id="file" accept="application/json,.json" hidden>
+<script>
+/* =====================================================
+   學習內容（依 EGK-0001 範例試卷的考點自編，非原試卷題目）
+   ===================================================== */
+const DATA = {
+  topics: [
+  { id: "t1", title: "投影原理",
+    keywords: ["正投影","斜投影","透視投影","投射線","正垂視圖","端視圖","邊視圖","正垂面","象限","基線","虛線"],
+    units: [
+    { id: "u1-1", title: "投影的種類", level: "基礎",
+      cards: [
+        { front: "投影由哪些要素構成？", back: "視點（觀察者）、投射線、物體、投影面。投射線從視點出發穿過物體，在投影面上留下的圖形就是投影。" },
+        { front: "平行投影與透視投影差在哪？", back: "視點在無窮遠：投射線互相平行，稱為平行投影。\n視點在有限距離：投射線交會於視點一點，稱為透視投影（中心投影）。" },
+        { front: "正投影的投射線有什麼特性？", back: "投射線互相平行，而且垂直於投影面。三視圖、輔助視圖都屬於正投影。" },
+        { front: "斜投影的投射線有什麼特性？", back: "投射線互相平行，但與投影面斜交（不垂直）。斜視立體圖就是由斜投影得來。" },
+        { front: "透視投影的特點？", back: "投射線集中於一點，物體近大遠小，最接近人眼或照片所見；常用於建築與產品外觀，但不易直接量取尺寸。" }
+      ],
+      examples: [
+        { q: "用某種投影方式畫出筆直的鐵軌，兩條軌道在遠方逐漸靠攏成一點。這是哪一種投影？其投射線關係為何？",
+          a: "透視投影；投射線相交於一點（視點）。",
+          explain: "平行投影中，平行線投影後仍互相平行；只有透視投影的投射線集中於視點，才會出現平行線在遠方匯聚成「消失點」的現象。" }
+      ],
+      quiz: [
+        { q: "哪一種投影的投射線互相平行，且與投影面垂直？", options: ["透視投影","斜投影","正投影","中心投影"], answer: 2,
+          explain: "正投影＝投射線平行＋垂直投影面。斜投影雖平行但與投影面斜交；透視（中心）投影的投射線交於一點。", cards: ["c1-1-3"] },
+        { q: "視點位於有限距離時，所得到的投影屬於？", options: ["正投影","斜投影","透視投影","等角投影"], answer: 2,
+          explain: "視點在有限距離，投射線會集中到視點，屬於透視投影；視點在無窮遠才是平行投影。", cards: ["c1-1-2","c1-1-5"] },
+        { q: "斜投影與正投影的共同點是？", options: ["投射線都垂直投影面","投射線都互相平行","投射線都交於一點","都會近大遠小"], answer: 1,
+          explain: "兩者都是平行投影，投射線互相平行；差別在正投影垂直投影面、斜投影斜交。", cards: ["c1-1-3","c1-1-4"] }
+      ] },
+    { id: "u1-2", title: "點、直線與平面的投影", level: "基礎",
+      cards: [
+        { front: "點在投影面上的投影是什麼？", back: "仍然是一個點。不論投影到哪一個投影面，點的投影都是點。" },
+        { front: "直線平行於投影面時，投影有何特徵？", back: "投影為直線，長度等於實長；這個視圖稱為該直線的正垂視圖（TL）。" },
+        { front: "直線垂直於投影面時，投影有何特徵？", back: "整條直線積聚成一個點，稱為端視圖（點視圖）。" },
+        { front: "直線傾斜於投影面時，投影有何特徵？", back: "投影仍是直線，但長度比實長短。" },
+        { front: "什麼是正垂面？", back: "與一個主要投影面平行、與另外兩個主要投影面垂直的平面。在平行的視圖中顯示實形，在另兩個視圖中成為一條線（邊視圖）。" },
+        { front: "什麼是平面的邊視圖？", back: "平面垂直於投影面時，整個平面積聚成一條直線，稱為邊視圖（EV）。" }
+      ],
+      examples: [
+        { q: "一支筆垂直插在桌面上。從正上方往下看（俯視圖）筆呈現什麼？從正前方看（前視圖）呢？",
+          a: "俯視圖是一個點（端視圖）；前視圖是一條等於實長的直線（正垂視圖）。",
+          explain: "筆垂直於水平投影面，所以在俯視圖積聚成點；同時筆平行於直立投影面，所以前視圖顯示實長。" },
+        { q: "一塊長方形木板平放在桌上，它在前視圖、俯視圖、右側視圖分別呈現什麼？",
+          a: "俯視圖顯示實形（長方形）；前視圖與右側視圖都是一條直線（邊視圖）。",
+          explain: "木板平行於水平投影面、垂直於另外兩個主要投影面，所以是正垂面。" }
+      ],
+      quiz: [
+        { q: "一條直線在某投影面上的投影成為一個點，表示這條直線與該投影面的關係是？", options: ["平行","垂直","傾斜","重合"], answer: 1,
+          explain: "直線垂直投影面時，整條線沿投射方向重疊，積聚成點，稱為端視圖。", cards: ["c1-2-3"] },
+        { q: "能顯示直線實長的視圖稱為？", options: ["端視圖","邊視圖","正垂視圖","局部視圖"], answer: 2,
+          explain: "直線平行於投影面時投影長度等於實長，此視圖稱為正垂視圖（TL）。端視圖是點、邊視圖是平面積聚成的線。", cards: ["c1-2-2"] },
+        { q: "正垂面與三個主要投影面的關係為何？", options: ["三個都垂直","垂直其中兩個、平行另一個","垂直一個、傾斜兩個","三個都傾斜"], answer: 1,
+          explain: "正垂面平行一個主要投影面（顯示實形），同時垂直另外兩個（成為邊視圖）。「垂直一個、傾斜兩個」是單斜面。", cards: ["c1-2-5"] }
+      ] },
+    { id: "u1-3", title: "象限、基線與線條意義", level: "進階",
+      cards: [
+        { front: "什麼是象限與基線？", back: "直立投影面（V）與水平投影面（H）互相垂直，把空間分成四個象限；兩面的交線稱為基線（GL）。\n第一象限：H 面上方、V 面前方；第二：上方、後方；第三：下方、後方；第四：下方、前方。" },
+        { front: "一條直線最多能穿過幾個象限？", back: "最多 3 個。直線與 H 面、V 面各最多相交一次，最多跨越兩次邊界，所以最多經過三個象限。" },
+        { front: "直線通過基線時會經過幾個象限？", back: "（不位於 H、V 面上時）只經過 2 個相對的象限，例如第一與第三象限。因為它在基線上同時穿過 H、V 兩個面。" },
+        { front: "第一角法與第三角法的差別？", back: "第一角法：物體放在第一象限，物體位於觀察者與投影面之間。\n第三角法：物體放在第三象限，投影面位於觀察者與物體之間。\n兩者 CNS 皆可使用，須在圖上標註投影法符號。" },
+        { front: "視圖中的線條可代表哪三種意義？", back: "① 平面的邊視（平面積聚成線）\n② 兩個面的交線\n③ 曲面的極限輪廓\n兩條曲線相交只會形成一個點，不是線條的意義。" },
+        { front: "被遮住看不見的稜邊怎麼表示？", back: "用虛線（隱藏線）表示。可見輪廓用粗實線、中心線用細鏈線、假想線用細的兩點鏈線。" }
+      ],
+      examples: [
+        { q: "一條直線從第二象限出發，先穿過 H 面，再穿過 V 面。它依序經過哪些象限？",
+          a: "第二 → 第三 → 第四象限，共 3 個。",
+          explain: "第二象限在 H 面上方、V 面後方。穿過 H 面變成下方、後方（第三象限）；再穿過 V 面變成下方、前方（第四象限）。穿越兩次邊界，正好是最大值 3 個象限。" }
+      ],
+      quiz: [
+        { q: "一條直線在空間中最多可以經過幾個象限？", options: ["1 個","2 個","3 個","4 個"], answer: 2,
+          explain: "直線與 H、V 兩面各最多相交一次，最多越過兩次邊界，所以最多經過 3 個象限。", cards: ["c1-3-2"] },
+        { q: "視圖上的一條實線，可能代表下列哪一種情況？", options: ["兩曲線的交點","曲面的極限輪廓","物體的中心位置","被遮蔽的稜邊"], answer: 1,
+          explain: "線條可代表平面的邊視、兩面交線、曲面極限。被遮蔽的稜邊要畫虛線；中心位置用細鏈線；兩曲線相交得到的是點。", cards: ["c1-3-5","c1-3-6"] },
+        { q: "一條直線通過基線（且不在 H、V 面上），可能經過哪兩個象限？", options: ["第一與第二","第一與第三","第一與第四","第二與第三"], answer: 1,
+          explain: "通過基線時同時穿過 H、V 兩面，會進入「相對」的象限，例如第一與第三、第二與第四。", cards: ["c1-3-3","c1-3-1"] }
+      ] }
+    ] },
+
+  { id: "t2", title: "輔助視圖",
+    keywords: ["單斜面","複斜面","類似形","輔助視圖","副輔助視圖","參考面 RP","實長","實形"],
+    units: [
+    { id: "u2-1", title: "斜面的分類", level: "基礎",
+      cards: [
+        { front: "正垂面（複習）", back: "平行一個主要投影面、垂直另外兩個；可以在主要視圖中直接看到實形。" },
+        { front: "什麼是單斜面？", back: "垂直於一個主要投影面，與另外兩個主要投影面傾斜。在垂直的那個視圖中是一條斜線（邊視圖），另兩個視圖是縮小的類似形。" },
+        { front: "什麼是複斜面？", back: "與三個主要投影面都傾斜。三個視圖中都看不到它的邊視圖，也看不到實形。" },
+        { front: "如何從三視圖判斷斜面類型？", back: "看這個面在三視圖中是否出現「一條線」：\n• 一個實形＋兩條線 → 正垂面\n• 一條線＋兩個類似形 → 單斜面\n• 三個都是類似形 → 複斜面" },
+        { front: "什麼是類似形？", back: "斜面在傾斜的投影面上呈現的形狀：邊數、平行關係與原形相同，但大小或比例改變。可用來檢查三視圖是否畫對。" }
+      ],
+      examples: [
+        { q: "某個面在前視圖是一條斜線，在俯視圖與右側視圖都是四邊形，這是什麼面？",
+          a: "單斜面。",
+          explain: "它只在前視圖積聚成線（邊視圖），表示垂直於直立投影面、與另外兩個投影面傾斜。" }
+      ],
+      quiz: [
+        { q: "平面垂直於一個主要投影面、與另兩個主要投影面傾斜，稱為？", options: ["正垂面","單斜面","複斜面","曲面"], answer: 1,
+          explain: "只垂直一個主要投影面的斜面是單斜面；三個都傾斜是複斜面；垂直兩個、平行一個是正垂面。", cards: ["c2-1-2"] },
+        { q: "某平面在三個主要視圖中都呈現縮小的類似形，沒有任何一個是線，它是？", options: ["正垂面","單斜面","複斜面","邊視面"], answer: 2,
+          explain: "三個視圖都沒有邊視圖，代表它與三個主要投影面都傾斜，所以是複斜面。", cards: ["c2-1-3","c2-1-4"] },
+        { q: "單斜面會在哪一種視圖中呈現為一條線？", options: ["與它傾斜的投影面","與它垂直的投影面","任何投影面","不會成為線"], answer: 1,
+          explain: "平面垂直於投影面時積聚成邊視圖（一條線）。單斜面只垂直一個主要投影面，所以只在該視圖是線。", cards: ["c2-1-2"] }
+      ] },
+    { id: "u2-2", title: "輔助視圖與實長實形", level: "進階",
+      cards: [
+        { front: "什麼是輔助視圖？", back: "投影面不平行於三個主要投影面所得到的視圖，用來顯示斜面的實形或斜線的實長。" },
+        { front: "為什麼需要輔助視圖？", back: "斜面在主要視圖中只呈現縮小的類似形，無法直接量取尺寸；把投影方向改成垂直斜面，才能看到真實形狀。" },
+        { front: "參考面 RP 是什麼？", back: "Reference Plane，量取距離的基準面。輔助視圖中，從 RP 量出的距離與相關視圖中對應的距離相同。" },
+        { front: "單斜面要幾次輔助投影才看得到實形？", back: "一次（主輔助視圖）：投影方向垂直於它的邊視圖即可。" },
+        { front: "複斜面怎樣才能看到實形？", back: "需要兩次：先畫出能看到它邊視圖的第一輔助視圖，再垂直該邊視圖畫第二（副）輔助視圖，才會顯示實形。" },
+        { front: "斜線的實長怎麼求？", back: "直線若不平行任何主要投影面，在主要視圖中都比實長短；畫一個與它平行的輔助投影面，所得的輔助視圖就顯示實長。" }
+      ],
+      examples: [
+        { q: "零件上有一個單斜面，在前視圖中是一條 30° 的斜線。要畫出它的實形，投影方向應如何安排？",
+          a: "投影方向垂直於前視圖中那條斜線，畫出的輔助視圖就是實形。",
+          explain: "那條斜線就是斜面的邊視圖；沿垂直邊視圖的方向投影，等於讓投影面與斜面平行，所以顯示實形。深度則以 RP 為基準，從俯視圖或側視圖轉量。" }
+      ],
+      quiz: [
+        { q: "要得到複斜面的實形，至少需要畫幾個輔助視圖？", options: ["0 個","1 個","2 個","3 個"], answer: 2,
+          explain: "複斜面先用第一輔助視圖求出邊視圖，再用副輔助視圖求實形，共兩個。", cards: ["c2-2-5"] },
+        { q: "輔助視圖中作為量取距離基準的參考面，英文簡稱為？", options: ["HP","VP","RP","PP"], answer: 2,
+          explain: "RP＝Reference Plane（參考面）。HP、VP 是水平、直立投影面；PP 常指側投影面或畫面。", cards: ["c2-2-3"] },
+        { q: "一條直線與三個主要投影面都不平行，要求它的實長應使用？", options: ["前視圖","俯視圖","右側視圖","輔助視圖"], answer: 3,
+          explain: "這種直線在三個主要視圖中都縮短，必須畫一個與它平行的輔助投影面，才能顯示實長。", cards: ["c2-2-6"] }
+      ] }
+    ] },
+
+  { id: "t3", title: "剖視圖",
+    keywords: ["割面線","剖面線","全剖面","半剖面","局部剖面","轉折剖面","旋轉剖面","移轉剖面"],
+    units: [
+    { id: "u3-1", title: "割面線與剖面線", level: "基礎",
+      cards: [
+        { front: "割面線的線型？", back: "細鏈線，兩端及轉折處畫成粗線，並以箭頭表示觀看方向，旁邊加註字母（如 A–A）。" },
+        { front: "割面線代表什麼？", back: "割切面的邊視圖，也就是假想把物體切開的位置。" },
+        { front: "割面線可以轉折嗎？可以省略嗎？", back: "可以轉折（轉折剖面），讓一次剖切經過多個特徵。\n若剖切位置非常明確（例如沿對稱中心線），割面線可以省略。" },
+        { front: "剖面線的線型與方向？", back: "細實線，一般與水平成 45°、間隔均勻。若 45° 會與輪廓線平行或垂直，應改用 30°、60° 等其他角度，所以不是一律 45°。" },
+        { front: "同一零件與相鄰零件的剖面線？", back: "同一零件在各剖視圖中的剖面線方向與間隔要一致；相鄰的不同零件要改變方向或間隔加以區別。" },
+        { front: "剖視圖上的尺寸標註要注意什麼？", back: "尺寸盡量標在剖面範圍之外，避免與剖面線交錯；不得已標在剖面內時，剖面線在數字處要中斷。" }
+      ],
+      examples: [
+        { q: "畫剖視圖時，零件的一條斜邊剛好與水平成 45°，剖面線應如何處理？",
+          a: "改用其他角度，例如 30° 或 60°。",
+          explain: "剖面線若與輪廓線平行，會讓輪廓看不清楚。45° 只是原則，遇到這種情況就應改變角度。" }
+      ],
+      quiz: [
+        { q: "關於割面線，下列敘述何者正確？", options: ["為粗實線","不可以轉折","為割切面的邊視圖","一定要畫出"], answer: 2,
+          explain: "割面線是細鏈線（兩端與轉折處加粗），代表割切面的邊視圖；可以轉折，位置明確時也可省略。", cards: ["c3-1-1","c3-1-2","c3-1-3"] },
+        { q: "剖面線使用的線型為？", options: ["粗實線","細實線","虛線","細鏈線"], answer: 1,
+          explain: "剖面線是細實線；細鏈線是中心線與割面線的基本線型。", cards: ["c3-1-4"] },
+        { q: "下列哪一種情況，剖面線不應採用 45°？", options: ["零件是圓柱","輪廓線剛好與水平成 45°","剖面面積很大","零件材質為鋼"], answer: 1,
+          explain: "輪廓線與剖面線平行會混淆，應改用其他角度。", cards: ["c3-1-4"] }
+      ] },
+    { id: "u3-2", title: "剖面的種類與畫法", level: "進階",
+      cards: [
+        { front: "全剖面", back: "割切面完全切過物體，把前半部移除後畫出的視圖。適合內部複雜、外形簡單的零件。" },
+        { front: "半剖面", back: "用於對稱物體：切除四分之一，一半畫剖面、一半畫外形。兩半以中心線（細鏈線）分界，不畫實線；外形那一半的隱藏線通常省略。" },
+        { front: "局部剖面", back: "只剖開需要表達的一小部分，用不規則的徒手細實線（折斷線）與外形分界，一般不畫割面線。" },
+        { front: "轉折剖面", back: "割切面轉折經過多個不在同一直線上的特徵。剖視圖中轉折處不畫線，當作同一個平面。" },
+        { front: "旋轉剖面與移轉剖面", back: "把斷面旋轉 90° 直接畫在視圖上，稱旋轉剖面；畫到視圖外適當位置，稱移轉剖面。常用來表示軸、肋、輪輻的斷面形狀。" },
+        { front: "哪些部分沿長度剖切時不畫剖面線？", back: "肋、輪輻、軸、螺栓、銷、鍵等沿長度方向被剖切時，習慣上不畫剖面線（以外形表示），避免讓人誤以為該處是大片實心。" }
+      ],
+      examples: [
+        { q: "一個左右對稱的軸承座，想同時呈現外形與內部孔的構造，最適合哪一種剖面？分界線用什麼線？",
+          a: "半剖面；以中心線分界。",
+          explain: "對稱物體用半剖面最有效率：一半顯示外形、一半顯示內部。分界是中心線（細鏈線），不是實線。" },
+        { q: "只想表達一根軸上某個鍵槽的深度，應選擇哪種剖面？",
+          a: "局部剖面（也可在鍵槽處用移轉剖面）。",
+          explain: "只需要局部資訊時，用徒手折斷線圍出剖切範圍即可，不必剖開整根軸。" }
+      ],
+      quiz: [
+        { q: "半剖面中，剖面部分與外形部分的分界線應畫成？", options: ["粗實線","中心線（細鏈線）","虛線","折斷線"], answer: 1,
+          explain: "半剖面以中心線分界；局部剖面才用折斷線。", cards: ["c3-2-2"] },
+        { q: "局部剖面的剖切範圍以什麼線分界？", options: ["中心線","不規則的徒手細實線","粗鏈線","假想線"], answer: 1,
+          explain: "局部剖面用不規則的徒手細實線（折斷線）圍出範圍。", cards: ["c3-2-3"] },
+        { q: "沿長度方向剖切到「肋」時，一般如何處理？", options: ["畫較密的剖面線","不畫剖面線","改畫虛線","整塊塗黑"], answer: 1,
+          explain: "肋、輪輻等沿長度方向剖切時不畫剖面線，避免誤認為實心。", cards: ["c3-2-6"] }
+      ] }
+    ] },
+
+  { id: "t4", title: "立體圖與等角圖",
+    keywords: ["立體圖","等角軸","120°","等角投影","0.82 縮短率","等角圖","1：1 實長","等角線","非等角線","35°16′"],
+    units: [
+    { id: "u4-1", title: "立體圖的特性", level: "基礎",
+      cards: [
+        { front: "立體圖是什麼？", back: "以單一視圖同時表現物體長、寬、高三個方向的圖，一個視圖就能表達物體的形狀與大小。" },
+        { front: "立體圖的優點", back: "• 一個視圖就能表達物體\n• 不需製圖訓練也看得懂\n• 常用於產品說明、組合圖、管路等立體系統圖" },
+        { front: "立體圖的缺點", back: "非等角方向的線條與圓會變形，實長不易量測；內部與隱藏結構難以表達，繪製也較費時。" },
+        { front: "立體圖的種類", back: "• 正投影立體圖：等角、二等角、不等角\n• 斜投影立體圖：等斜、半斜\n• 透視圖" },
+        { front: "多視圖與立體圖如何搭配？", back: "多視圖（正投影）能精確表達形狀與尺寸，是製造用的主要圖面；立體圖直觀易懂，常作為輔助說明。" }
+      ],
+      examples: [
+        { q: "要給沒學過製圖的組裝人員看家具組裝說明，最適合用哪一種圖？為什麼？",
+          a: "立體圖（例如等角分解圖）。",
+          explain: "立體圖一個視圖就能看出三個方向的形狀，一般人容易理解；多視圖需要投影觀念才讀得懂。" }
+      ],
+      quiz: [
+        { q: "下列何者是立體圖的缺點？", options: ["只需要一個視圖","一般人容易理解","非等角方向的長度不易量測","可用於系統圖"], answer: 2,
+          explain: "其餘三項都是優點；非等角線不是實長，不易直接量測。", cards: ["c4-1-3","c4-1-2"] },
+        { q: "沒有受過製圖訓練的人，最容易看懂哪一種圖？", options: ["多視圖","剖視圖","輔助視圖","立體圖"], answer: 3,
+          explain: "立體圖同時呈現三個方向，最接近實物外觀。", cards: ["c4-1-2"] },
+        { q: "等角圖屬於哪一類立體圖？", options: ["斜投影立體圖","正投影立體圖","透視圖","中心投影圖"], answer: 1,
+          explain: "等角、二等角、不等角都屬於正投影立體圖。", cards: ["c4-1-4"] }
+      ] },
+    { id: "u4-2", title: "等角投影與等角圖", level: "基礎",
+      cards: [
+        { front: "等角軸", back: "代表高、寬、深的三條軸，稱為等角軸，彼此互夾 120°。通常高度軸垂直，另兩軸與水平成 30°。" },
+        { front: "等角投影的縮短率", back: "物體三軸與投影面的傾角相同，投影後三軸長度都縮短成實長的約 0.82 倍（0.816）。" },
+        { front: "等角圖", back: "為了方便繪製，直接以實長（1：1）畫在等角軸上，不再縮短。" },
+        { front: "等角圖和等角投影圖有何不同？", back: "形狀完全相同，只有大小不同：等角圖約為等角投影圖的 1.22 倍（1 ÷ 0.816）。" },
+        { front: "比例速記", back: "• 等角投影 ≈ 0.82：1（縮小）\n• 等角圖 ＝ 1：1（實長）\n• 等角圖 ÷ 等角投影 ≈ 1.22" }
+      ],
+      examples: [
+        { q: "方塊上一條長 50 mm 且平行等角軸的邊，畫成等角圖與等角投影圖時各應畫多長？",
+          a: "等角圖畫 50 mm；等角投影圖約 41 mm。",
+          explain: "等角圖沿等角軸直接用實長；等角投影要乘上縮短率：50 × 0.816 ≈ 40.8 mm。" }
+      ],
+      quiz: [
+        { q: "等角圖中三條等角軸彼此互夾幾度？", options: ["60°","90°","120°","135°"], answer: 2,
+          explain: "三軸平分 360°，每兩軸互夾 120°。", cards: ["c4-2-1"] },
+        { q: "畫等角圖時，沿等角軸量取長度所用的比例為？", options: ["0.82：1","1：1","1.22：1","1：2"], answer: 1,
+          explain: "等角圖直接用實長；0.82：1 是等角投影的縮短率。", cards: ["c4-2-3","c4-2-5"] },
+        { q: "同一物體的等角圖與等角投影圖相比？", options: ["形狀與大小都相同","形狀相同、大小不同","形狀不同、大小相同","形狀與大小都不同"], answer: 1,
+          explain: "兩者只差在比例：等角圖較大（約 1.22 倍），形狀一樣。", cards: ["c4-2-4"] }
+      ] },
+    { id: "u4-3", title: "等角線與等角橢圓", level: "進階",
+      cards: [
+        { front: "等角線", back: "與等角軸平行的線，可以直接用實長量取繪製。" },
+        { front: "非等角線", back: "不平行等角軸的線（例如斜邊），長度不是實長，不能直接量；要先沿等角軸定出兩端點，再連線。" },
+        { front: "等角面", back: "與任兩條等角軸平行的平面，例如立方體的頂面、前面、側面，共三組。" },
+        { front: "35°16′ 是什麼角度？", back: "等角投影時，正立方體的對角線垂直投影面，各稜邊與投影面都傾斜 35°16′（tan⁻¹(1/√2)）。考題常以「立方體傾斜約 35°16′」出現。" },
+        { front: "等角面上的圓怎麼畫？", back: "圓在等角面上會變成橢圓，可用 35°16′ 的橢圓板繪製，或用四心近似法畫出。" },
+        { front: "等角橢圓的長軸方向？", back: "橢圓的長軸垂直於「與該面垂直的那條等角軸」。例如頂面的橢圓，長軸是水平的。" }
+      ],
+      examples: [
+        { q: "在等角圖中畫方塊頂面從左前角到右後角的對角線，可以直接量取它的實長嗎？",
+          a: "不行，它是非等角線。",
+          explain: "對角線不平行任何等角軸，在等角圖中的長度不等於實長；應先沿等角軸定出兩端點再連線。" }
+      ],
+      quiz: [
+        { q: "等角圖中，可以直接量取實長的線為？", options: ["非等角線","等角線","任何斜線","對角線"], answer: 1,
+          explain: "只有平行等角軸的等角線，在等角圖上的長度等於實長。", cards: ["c4-3-1","c4-3-2"] },
+        { q: "繪製等角面上的圓時，常用的橢圓板角度為？", options: ["30°","35°16′","45°","60°"], answer: 1,
+          explain: "等角面上的圓以 35°16′ 橢圓板繪製。", cards: ["c4-3-5"] },
+        { q: "等角投影中，正立方體的稜邊與投影面的傾角約為？", options: ["30°","35°16′","45°","54°44′"], answer: 1,
+          explain: "tan⁻¹(1/√2) ≈ 35°16′；54°44′ 是立方體各「面」與投影面的夾角，容易混淆。", cards: ["c4-3-4"] }
+      ] }
+    ] },
+
+  { id: "t5", title: "製圖規範",
+    keywords: ["mm","CNS","藍圖","縮尺","倍尺","A0 ＝ 1 m²","裝訂邊 25 mm","摺成 A4","光線從左前方"],
+    units: [
+    { id: "u5-1", title: "單位、標準與縮尺", level: "基礎",
+      cards: [
+        { front: "公制機械圖的長度單位", back: "mm（公厘）。圖上尺寸數字不必寫單位，預設就是 mm。" },
+        { front: "各國製圖標準代號", back: "中華民國 CNS、日本 JIS、德國 DIN、國際 ISO、美國 ANSI。\nAISI 是美國鋼鐵學會的材料規格，不是製圖標準。" },
+        { front: "常見圖面的種類", back: "• 草圖：徒手畫的構想圖\n• 原圖：正式繪製完成的圖\n• 描圖：描在描圖紙上、供複製用\n• 藍圖（複製圖）：複製後發給現場操作者使用" },
+        { front: "比例的寫法", back: "實大 1：1；縮尺 1：2、1：5…（圖比實物小）；倍尺 2：1、5：1…（圖比實物大）。不論比例為何，尺寸都標實際大小。" },
+        { front: "CNS 常用縮尺", back: "1：2、1：2.5、1：5、1：10、1：20、1：50…，以 1、2、2.5、5 系列為主；1：3 一般不使用。" }
+      ],
+      examples: [
+        { q: "一個零件實際長 200 mm，畫在圖上只有 40 mm，比例為何？屬於縮尺還是倍尺？尺寸應標多少？",
+          a: "1：5，縮尺；尺寸標 200。",
+          explain: "圖上長度：實物長度＝40：200＝1：5。圖比實物小，所以是縮尺；尺寸一律標實際大小。" }
+      ],
+      quiz: [
+        { q: "JIS 是哪一個國家的工業標準？", options: ["德國","美國","日本","中華民國"], answer: 2,
+          explain: "JIS＝日本；DIN＝德國；ANSI＝美國；CNS＝中華民國。", cards: ["c5-1-2"] },
+        { q: "發給加工現場人員使用的圖面通常是？", options: ["草圖","原圖","描圖","複製圖（藍圖）"], answer: 3,
+          explain: "原圖要保存，現場使用的是複製出來的藍圖。", cards: ["c5-1-3"] },
+        { q: "下列何者是 CNS 常用的縮尺？", options: ["2：1","1：2.5","1：3","1：7"], answer: 1,
+          explain: "2：1 是倍尺；1：3、1：7 不在常用系列中；1：2.5 是常用縮尺。", cards: ["c5-1-4","c5-1-5"] }
+      ] },
+    { id: "u5-2", title: "圖紙與製圖環境", level: "基礎",
+      cards: [
+        { front: "A 系列圖紙的規則", back: "A0 面積為 1 m²（841 × 1189 mm），長寬比 1：√2。A1 是 A0 對半，每小一號面積減半。" },
+        { front: "各號圖紙尺寸（mm）", back: "A1：594 × 841\nA2：420 × 594\nA3：297 × 420\nA4：210 × 297" },
+        { front: "圖框與裝訂邊", back: "需要裝訂時，裝訂邊留 25 mm；其他三邊 A0、A1 留 20 mm，A2～A4 留 10 mm。" },
+        { front: "圖紙如何摺疊？", back: "大張圖紙摺疊或裝訂成冊時，摺成 A4 大小，並讓標題欄露在外面。" },
+        { front: "製圖桌的光線方向", back: "光線應從左前方射入（以右手繪圖者為準），避免手和尺的陰影擋住畫線處。" }
+      ],
+      examples: [
+        { q: "A2 圖紙的面積大約是多少？",
+          a: "0.25 m²。",
+          explain: "A0＝1 m²，每小一號面積減半：A1＝0.5 m²、A2＝0.25 m²。" }
+      ],
+      quiz: [
+        { q: "A1 圖紙的面積約為？", options: ["0.25 m²","0.5 m²","1 m²","2 m²"], answer: 1,
+          explain: "A0 是 1 m²，A1 是對半，所以是 0.5 m²。", cards: ["c5-2-1"] },
+        { q: "關於圖紙，下列敘述何者正確？", options: ["A3 比 A2 大","裝訂邊留 25 mm","摺疊時摺成 A3 大小","A 系列長寬比為 1：2"], answer: 1,
+          explain: "A3 比 A2 小；摺疊要摺成 A4；長寬比是 1：√2。", cards: ["c5-2-1","c5-2-3","c5-2-4"] },
+        { q: "右手繪圖的人，製圖桌的光線最好從哪個方向進入？", options: ["右前方","左前方","正後方","右後方"], answer: 1,
+          explain: "光線從左前方來，右手畫線時陰影落在右後方，不會擋住筆尖。", cards: ["c5-2-5"] }
+      ] }
+    ] },
+
+  { id: "t6", title: "螺紋",
+    keywords: ["節距","導程","L ＝ nP","右螺紋","左螺紋","螺紋角 60°","梯形螺紋 30°","螺旋角"],
+    units: [
+    { id: "u6-1", title: "螺紋基本名詞", level: "基礎",
+      cards: [
+        { front: "節距（螺距）P", back: "相鄰兩個螺紋牙上對應點之間的軸向距離。" },
+        { front: "導程 L", back: "螺紋旋轉一圈時，沿軸向前進的距離。" },
+        { front: "導程與節距的關係", back: "L ＝ n × P（n 為螺紋線數）。\n單線 L＝P；雙線 L＝2P；三線 L＝3P。" },
+        { front: "右螺紋與左螺紋", back: "順時針旋轉而前進者為右螺紋（最常用）；逆時針旋轉而前進者為左螺紋，圖上須註明「左」或 LH。" },
+        { front: "外螺紋與內螺紋", back: "切在圓柱外表面的是外螺紋（如螺栓）；切在孔的內表面的是內螺紋（如螺帽）。" },
+        { front: "大徑、小徑、節徑", back: "大徑（外徑）是螺紋的最大直徑，作為公稱尺寸；小徑（根徑）是最小直徑；節徑是牙厚與牙間寬度相等處的直徑。" }
+      ],
+      examples: [
+        { q: "一支雙線螺紋的節距為 1.5 mm，旋轉 4 圈會前進多少？",
+          a: "12 mm。",
+          explain: "導程 L ＝ 2 × 1.5 ＝ 3 mm；旋轉 4 圈前進 4 × 3 ＝ 12 mm。" }
+      ],
+      quiz: [
+        { q: "四線螺紋的導程是節距的幾倍？", options: ["1/4 倍","1 倍","2 倍","4 倍"], answer: 3,
+          explain: "L ＝ n × P，四線螺紋 L ＝ 4P。", cards: ["c6-1-3"] },
+        { q: "相鄰兩牙對應點之間的軸向距離稱為？", options: ["導程","節距","節徑","牙深"], answer: 1,
+          explain: "這是節距 P；旋轉一圈前進的距離才是導程。", cards: ["c6-1-1","c6-1-2"] },
+        { q: "順時針旋轉而前進的螺紋稱為？", options: ["右螺紋","左螺紋","內螺紋","多線螺紋"], answer: 0,
+          explain: "順時針前進是右螺紋；逆時針前進是左螺紋。", cards: ["c6-1-4"] }
+      ] },
+    { id: "u6-2", title: "螺紋角與螺旋角", level: "進階",
+      cards: [
+        { front: "常見螺紋的螺紋角", back: "• 公制螺紋 60°\n• 統一標準螺紋 60°\n• 惠氏螺紋 55°\n• 愛克姆螺紋 29°\n• 公制梯形螺紋 30°\n• 方螺紋：牙側平行（0°）" },
+        { front: "螺紋角速記", back: "「公制、統一都是 60，惠氏 55，愛克姆 29，梯形 30」。三角螺紋多為 60°；梯形類用於傳動，角度較小。" },
+        { front: "梯形螺紋與方螺紋的用途", back: "可承受較大的軸向力、摩擦較小，用於傳動，例如車床導螺桿、千斤頂。" },
+        { front: "螺旋角 β 的公式", back: "螺旋線與垂直軸線的平面所夾的角度：\ntan β ＝ L ÷ (πD)\nβ ＝ tan⁻¹(L / πD)" },
+        { front: "螺旋角公式怎麼來的？", back: "把一圈螺紋展開成直角三角形：底邊是圓周長 πD，高是導程 L，斜邊就是螺旋線，所以 tan β ＝ L / πD。導程越大、直徑越小，螺旋角越大。" }
+      ],
+      examples: [
+        { q: "某螺紋外徑 20 mm、導程 3 mm，螺旋角約為多少？",
+          a: "約 2.7°。",
+          explain: "tan β ＝ 3 ÷ (π × 20) ≈ 0.048，β ＝ tan⁻¹(0.048) ≈ 2.7°。" }
+      ],
+      quiz: [
+        { q: "惠氏螺紋的螺紋角為？", options: ["29°","30°","55°","60°"], answer: 2,
+          explain: "惠氏 55°；29° 是愛克姆、30° 是公制梯形、60° 是公制與統一螺紋。", cards: ["c6-2-1","c6-2-2"] },
+        { q: "公制梯形螺紋主要用於？", options: ["固定連接","傳動","密封","裝飾"], answer: 1,
+          explain: "梯形螺紋能承受較大軸向力，用於導螺桿等傳動機構。", cards: ["c6-2-3"] },
+        { q: "直徑不變，若螺紋導程變為兩倍，tan β 會？", options: ["變為一半","不變","變為兩倍","變為四倍"], answer: 2,
+          explain: "tan β ＝ L / πD，L 加倍則 tan β 加倍。", cards: ["c6-2-4","c6-2-5"] }
+      ] }
+    ] }
+  ]
+};
+
+/* ===================== 資料索引 ===================== */
+const T = {}, U = {}, C = {}, Q = {}, K = {};
+DATA.topics.forEach((t, ti) => {
+  t.no = ti + 1; T[t.id] = t;
+  t.kw = t.keywords.map((w, i) => { const k = { id: t.id + "-k" + (i + 1), word: w, topic: t }; K[k.id] = k; return k; });
+  t.units.forEach((u, ui) => {
+    u.topic = t; u.order = ui; U[u.id] = u;
+    const n = u.id.slice(1);
+    u.cards.forEach((c, i) => { c.id = "c" + n + "-" + (i + 1); c.unit = u; C[c.id] = c; });
+    u.quiz.forEach((q, i) => { q.id = "q" + n + "-" + (i + 1); q.unit = u; Q[q.id] = q; });
+  });
+});
+
+/* ===================== 進度儲存（localStorage） ===================== */
+const LS_KEY = "kaodian_progress_v1", INK_KEY = "kaodian_ink_v1";
+const blank = () => ({ read: {}, viewed: {}, marks: {}, quiz: {}, sort: {}, canvas: [] });
+function loadState() {
+  try { return Object.assign(blank(), JSON.parse(localStorage.getItem(LS_KEY)) || {}); }
+  catch (e) { return blank(); }
+}
+let S = loadState();
+function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) { toast("進度無法儲存（瀏覽器可能封鎖了儲存空間）"); } }
+
+/* ===================== 小工具 ===================== */
+const MARKS = { 1: "精熟", 2: "再複習", 3: "待加強" };
+const ABCD = "ABCD";
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const avg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg; el.classList.add("show");
+  clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 2200);
+}
+function starTxt(a) {
+  if (a == null) return '<span class="muted">尚未標記</span>';
+  return `<span class="stars s${clamp(Math.round(a), 1, 3)}">★ ${a.toFixed(1)}</span>`;
+}
+function unitStats(u) {
+  const vals = u.cards.map(c => S.marks[c.id]).filter(Boolean);
+  return { avg: avg(vals), marked: vals.length, total: u.cards.length };
+}
+function topicStats(t) {
+  const vals = [];
+  t.units.forEach(u => u.cards.forEach(c => S.marks[c.id] && vals.push(S.marks[c.id])));
+  return { avg: avg(vals), read: t.units.filter(u => S.read[u.id]).length };
+}
+function levelCards(t, lvl) {
+  const out = [];
+  t.units.forEach(u => u.cards.forEach(c => S.marks[c.id] === lvl && out.push(c)));
+  return out;
+}
+function sortMode(t) {
+  if (S.sort[t.id]) return S.sort[t.id];
+  return t.units.some(u => u.cards.some(c => S.marks[c.id])) ? "weak" : "course";
+}
+function sortedUnits(t, mode) {
+  if (mode === "course") return t.units.slice();
+  const marked = [], unmarked = [];
+  t.units.forEach(u => (unitStats(u).avg == null ? unmarked : marked).push(u));
+  marked.sort((a, b) => unitStats(b).avg - unitStats(a).avg || a.order - b.order);
+  return marked.concat(unmarked);
+}
+
+/* ===================== 介面狀態（不儲存） ===================== */
+const ui = { pos: {}, flip: null, reveal: {}, open: {}, mq: {}, mqAns: {}, mode: "move", color: "#111827", sel: null };
+let ctx = {}, ctxN = 0;
+
+/* ===================== 複製提問 ===================== */
+function askBox(text, open) {
+  const k = "a" + (ctxN++); ctx[k] = text;
+  return `<details class="ask" ${open ? "open" : ""}><summary>有疑問？複製提問到 AI</summary>
+    <textarea placeholder="輸入你的疑問（可留白）"></textarea>
+    <button class="pri" data-act="ask" data-k="${k}">複製提問</button></details>`;
+}
+function buildPrompt(body, question) {
+  return "我正在準備「工程圖學與機械製圖」考試，請幫我解惑。\n\n" + body +
+    "\n\n【我的疑問】" + (question || "請用更簡單的方式再解釋一次，並舉一個例子。");
+}
+async function copyText(text) {
+  const ok = "已複製！請貼到 ChatGPT、Claude 等 AI 工具詢問";
+  try { await navigator.clipboard.writeText(text); toast(ok); return; } catch (e) {}
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+  ta.remove(); toast(done ? ok : "複製失敗，請改用手動選取");
+}
+
+/* ===================== 頁面 ===================== */
+function topHead(back, title, sub) {
+  return `<div class="top"><button class="back" data-act="go" data-to="${back}">‹ 返回</button>
+    <div><h1>${esc(title)}</h1>${sub ? `<div class="sub">${sub}</div>` : ""}</div></div>`;
+}
+
+function vHome() {
+  const all = Object.values(U), r = all.filter(u => S.read[u.id]).length;
+  const pct = Math.round(r / all.length * 100);
+  return `<header class="hero"><h1>考點學習網</h1><div class="sub">工程圖學與機械製圖・考前循序複習</div></header>
+  <div class="card"><div class="row between"><b>整體進度</b><span class="muted">已讀單元 ${r} / ${all.length}</span></div>
+    <div class="bar" style="margin-top:8px"><i style="width:${pct}%"></i></div></div>
+  <h2 class="sec">關鍵字提取</h2>
+  <div class="card item" data-act="go" data-to="#/kw"><div class="ico">🔑</div>
+    <div style="flex:1"><b>關鍵字畫布</b><div class="sub">把關鍵字放上畫布，拖曳、縮放、畫重點</div></div><span class="chev">›</span></div>
+  <h2 class="sec">主題</h2>
+  ${DATA.topics.map(t => { const s = topicStats(t); return `
+  <div class="card item" data-act="go" data-to="#/t/${t.id}"><div class="num">${t.no}</div>
+    <div style="flex:1"><b>${esc(t.title)}</b><div class="sub">已讀 ${s.read}/${t.units.length} 單元・${starTxt(s.avg)}</div></div>
+    <span class="chev">›</span></div>`; }).join("")}
+  <h2 class="sec">進度管理</h2>
+  <div class="card"><div class="sub">進度只存在這台裝置的這個瀏覽器。換裝置前請先匯出，再到新裝置匯入。</div>
+    <div class="row wrap" style="margin-top:10px">
+      <button data-act="export">匯出進度</button><button data-act="import">匯入進度</button>
+      <button class="danger" data-act="reset">重設進度</button></div></div>
+  <div class="note">星星越多代表越不熟：精熟 1 顆、再複習 2 顆、待加強 3 顆。<br>例題與測驗皆依考點自編，非原試卷題目。</div>`;
+}
+
+function vTopic(t) {
+  const mode = sortMode(t), units = sortedUnits(t, mode);
+  const n = lvl => levelCards(t, lvl).length;
+  return `${topHead("#/", t.title, "主題 " + t.no + "・" + t.units.length + " 個單元")}
+  <div class="tabs">
+    <button class="${mode === "weak" ? "on" : ""}" data-act="sort" data-t="${t.id}" data-m="weak">弱點優先</button>
+    <button class="${mode === "course" ? "on" : ""}" data-act="sort" data-t="${t.id}" data-m="course">課程順序</button></div>
+  <div class="card item" data-act="go" data-to="#/t/${t.id}/m"><div class="ico">📂</div>
+    <div style="flex:1"><b>我的熟練度</b><div class="sub"><span class="s1">精熟 ${n(1)}</span>・<span class="s2">再複習 ${n(2)}</span>・<span class="s3">待加強 ${n(3)}</span></div></div>
+    <span class="chev">›</span></div>
+  ${units.map(u => { const s = unitStats(u), rd = S.read[u.id]; return `
+  <div class="card item" data-act="go" data-to="#/t/${t.id}/u/${u.id}">
+    <span class="check ${rd ? "on" : ""}">${rd ? "✓" : ""}</span>
+    <div style="flex:1"><b>${esc(u.title)}</b> <span class="badge ${u.level === "進階" ? "adv" : ""}">${u.level}</span>
+      <div class="sub">${starTxt(s.avg)}・已標記 ${s.marked}/${s.total}</div></div>
+    <span class="chev">›</span></div>`; }).join("")}`;
+}
+
+function markBtns(cid) {
+  return `<div class="marks">${[1, 2, 3].map(v =>
+    `<button class="mk${v} ${S.marks[cid] === v ? "on" : ""}" data-act="mark" data-id="${cid}" data-v="${v}">${MARKS[v]}</button>`).join("")}</div>`;
+}
+
+function vCards(u) {
+  const n = u.cards.length;
+  let i = ui.pos[u.id] || 0; if (i >= n) i = 0;
+  const c = u.cards[i], fl = ui.flip === c.id;
+  return `<div class="dots">${u.cards.map((x, k) =>
+      `<i class="${S.marks[x.id] ? "m" + S.marks[x.id] : S.viewed[x.id] ? "v" : ""} ${k === i ? "cur" : ""}"></i>`).join("")}</div>
+  <div class="card flash ${fl ? "back" : ""}" data-act="flip" data-id="${c.id}">
+    <div class="face">${fl ? `<div class="ftitle">${esc(c.front)}</div><div style="white-space:pre-line">${esc(c.back)}</div>` : esc(c.front)}</div>
+    <div class="hint">${fl ? "點擊翻回正面" : "點擊翻面看說明"}</div></div>
+  <div class="row between"><button data-act="step" data-u="${u.id}" data-d="-1">‹ 上一張</button>
+    <span class="muted">第 ${i + 1} / ${n} 張</span>
+    <button data-act="step" data-u="${u.id}" data-d="1">下一張 ›</button></div>
+  ${markBtns(c.id)}
+  <div class="note">再按一次已選的標記可以取消。觀念卡全部翻過一次，單元會自動標為已讀。</div>`;
+}
+
+function vExamples(u) {
+  return u.examples.map((x, i) => {
+    const k = u.id + "-" + i, open = ui.reveal[k];
+    return `<div class="card"><div class="qno">考點例題 ${i + 1}</div><div>${esc(x.q)}</div>
+      ${open ? `<div class="explain"><b>答案：</b>${esc(x.a)}\n<b>解說：</b>${esc(x.explain)}</div>
+        ${askBox("【例題】" + x.q + "\n【答案】" + x.a + "\n【解說】" + x.explain)}` : ""}
+      <button style="margin-top:10px" data-act="reveal" data-k="${k}">${open ? "收起答案" : "看答案"}</button></div>`;
+  }).join("") + `<div class="note">例題依試卷考點自編，非原試卷題目。</div>`;
+}
+
+function quizBlock(q, num, scope) {
+  const store = scope === "m" ? ui.mqAns : S.quiz, r = store[q.id];
+  const opts = q.options.map((o, i) => {
+    let cls = "";
+    if (r) cls = i === q.answer ? "ok" : i === r.choice ? "ng" : "";
+    return `<button class="opt ${cls}" ${r ? "disabled" : ""} data-act="ans" data-s="${scope}" data-q="${q.id}" data-c="${i}">${ABCD[i]}. ${esc(o)}</button>`;
+  }).join("");
+  let fb = "";
+  if (r) {
+    const body = "【題目】" + q.q + "\n【選項】" + q.options.map((o, i) => ABCD[i] + ". " + o).join("　") +
+      "\n【正確答案】" + ABCD[q.answer] + "\n【我的答案】" + ABCD[r.choice] + "\n【解說】" + q.explain;
+    fb = `<div class="fb ${r.correct ? "ok" : "ng"}">${r.correct ? "✓ 答對了！" : "✗ 答錯了，正確答案是 " + ABCD[q.answer]}</div>
+      <div class="explain">${esc(q.explain)}</div>${askBox(body)}
+      <button style="margin-top:8px" data-act="retry" data-s="${scope}" data-q="${q.id}">重新作答</button>`;
+  }
+  const from = scope === "m" ? `<span class="muted">（${esc(q.unit.title)}）</span>` : "";
+  return `<div class="card"><div class="qno">第 ${num} 題 ${from}</div><div>${esc(q.q)}</div>${opts}${fb}</div>`;
+}
+
+function vQuiz(u) {
+  const done = u.quiz.filter(q => S.quiz[q.id]), ok = done.filter(q => S.quiz[q.id].correct).length;
+  return `<div class="row between"><span class="muted">已作答 ${done.length} / ${u.quiz.length}</span><b>答對 ${ok} / ${u.quiz.length}</b></div>
+    ${u.quiz.map((q, i) => quizBlock(q, i + 1, "u")).join("")}
+    <button style="width:100%" data-act="retryAll" data-u="${u.id}">全部重新作答</button>`;
+}
+
+function vUnit(t, u, tab) {
+  const base = `#/t/${t.id}/u/${u.id}/`, rd = S.read[u.id];
+  const tabs = [["cards", "觀念卡"], ["examples", "考點例題"], ["quiz", "小測驗"]];
+  return `${topHead("#/t/" + t.id, u.title, esc(t.title) + "・" + u.level)}
+  <div class="row between"><span class="sub">${starTxt(unitStats(u).avg)}</span>
+    <button data-act="read" data-u="${u.id}">${rd ? "✓ 已讀（點此取消）" : "標為已讀"}</button></div>
+  <div class="tabs">${tabs.map(([k, n]) => `<button class="${tab === k ? "on" : ""}" data-act="go" data-to="${base + k}">${n}</button>`).join("")}</div>
+  ${tab === "cards" ? vCards(u) : tab === "examples" ? vExamples(u) : vQuiz(u)}`;
+}
+
+function vMastery(t) {
+  return `${topHead("#/t/" + t.id, "我的熟練度", esc(t.title))}
+  <div class="sub">這裡集中整理你在各單元觀念卡上做的標記。</div>
+  ${[3, 2, 1].map(l => `<div class="card item" data-act="go" data-to="#/t/${t.id}/m/${l}">
+    <span class="stars s${l}" style="width:52px">${"★".repeat(l)}</span>
+    <div style="flex:1"><b>${MARKS[l]}</b><div class="sub">${levelCards(t, l).length} 張卡片</div></div><span class="chev">›</span></div>`).join("")}`;
+}
+
+function vLevel(t, lvl) {
+  const cards = levelCards(t, lvl), key = t.id + "-" + lvl, ids = ui.mq[key];
+  const list = cards.length ? cards.map(c => {
+    const open = ui.open[c.id];
+    return `<div class="card"><div class="sub">${esc(c.unit.title)}</div>
+      <div class="item" data-act="open" data-id="${c.id}"><b style="flex:1">${esc(c.front)}</b><span class="chev">${open ? "▾" : "▸"}</span></div>
+      ${open ? `<div class="explain">${esc(c.back)}</div>` : ""}${markBtns(c.id)}</div>`;
+  }).join("") : `<div class="card empty">目前沒有標記為「${MARKS[lvl]}」的卡片。<br>到各單元的觀念卡標記後就會出現在這裡。</div>`;
+  const body = cards.map(c => "・" + c.front + "：" + c.back).join("\n");
+  return `${topHead("#/t/" + t.id + "/m", MARKS[lvl], esc(t.title) + "・" + cards.length + " 張卡片")}
+  ${list}
+  ${cards.length ? `<h2 class="sec">自由提問</h2><div class="card">
+    <div class="sub">會把這裡所有卡片的內容連同你的問題一起複製。</div>
+    ${askBox("以下是我標記為「" + MARKS[lvl] + "」的觀念：\n" + body, true)}</div>
+  <h2 class="sec">出題</h2>
+  <div class="card"><div class="sub">從題庫中抽出與這些卡片相關的題目（最多 5 題）。</div>
+    <button class="pri" style="margin-top:10px" data-act="mq" data-t="${t.id}" data-l="${lvl}">${ids ? "換一組題目" : "開始出題"}</button></div>
+  ${ids ? (ids.length ? ids.map((id, i) => quizBlock(Q[id], i + 1, "m")).join("") : `<div class="card empty">題庫中沒有對應這些卡片的題目。</div>`) : ""}` : ""}`;
+}
+
+/* ===================== 關鍵字畫布 ===================== */
+const COLORS = [{ n: "黑", v: "#111827" }, { n: "藍", v: "#2563eb" }, { n: "紅", v: "#dc2626" }, { n: "綠", v: "#16a34a" }];
+let baseImg = null, strokes = [], cur = null, drag = null, cvEl = null, gEl = null, boardEl = null;
+try {
+  const d = localStorage.getItem(INK_KEY);
+  if (d) { const im = new Image(); im.onload = () => { baseImg = im; drawInk(); }; im.src = d; }
+} catch (e) {}
+
+function chipHtml(it) {
+  return `<div class="chip ${ui.sel === it.kw ? "sel" : ""}" data-kw="${it.kw}" style="left:${it.x * 100}%;top:${it.y * 100}%;--s:${it.scale}">${esc(K[it.kw].word)}</div>`;
+}
+function vKw() {
+  S.canvas = S.canvas.filter(it => K[it.kw]);
+  const pen = ui.mode === "pen";
+  const tools = pen
+    ? COLORS.map(c => `<button class="sw ${ui.color === c.v ? "on" : ""}" style="background:${c.v}" aria-label="${c.n}色" title="${c.n}" data-act="color" data-c="${c.v}"></button>`).join("") +
+      `<button data-act="undo">復原</button><button data-act="clearInk">清空筆跡</button>`
+    : `<span class="sub" id="selHint" ${ui.sel ? "hidden" : ""}>拖曳關鍵字移動，點選後可縮放</span>
+       <span id="selCtl" class="row" ${ui.sel ? "" : "hidden"} style="gap:6px"><button data-act="kwScale" data-d="0.2">放大＋</button><button data-act="kwScale" data-d="-0.2">縮小－</button><button data-act="kwDel">刪除</button></span>`;
+  return `<div class="kw">
+  <div class="head"><button class="back" data-act="go" data-to="#/">‹ 返回</button><b style="flex:1">關鍵字提取</b>
+    <button class="${!pen ? "pri" : ""}" data-act="mode" data-m="move">移動</button>
+    <button class="${pen ? "pri" : ""}" data-act="mode" data-m="pen">畫筆</button></div>
+  <div class="tools">${tools}</div>
+  <div class="board ${pen ? "pen" : ""}" id="board"><canvas id="ink"></canvas>
+    <div id="chips">${S.canvas.map(chipHtml).join("")}</div>
+    ${S.canvas.length ? "" : '<div class="empty">畫布是空的，點下方的關鍵字開始整理</div>'}</div>
+  <div class="kwlist"><div class="in">${DATA.topics.map(t => `<div class="kwg"><h3>${t.no}. ${esc(t.title)}</h3>
+    ${t.kw.map(k => `<button class="kchip ${S.canvas.some(x => x.kw === k.id) ? "used" : ""}" data-act="addKw" data-k="${k.id}">${esc(k.word)}</button>`).join("")}</div>`).join("")}
+  </div></div></div>`;
+}
+
+function sizeInk() {
+  if (!cvEl || !document.body.contains(cvEl)) return;
+  const r = boardEl.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  cvEl.width = Math.round(r.width * d); cvEl.height = Math.round(r.height * d);
+  gEl.setTransform(d, 0, 0, d, 0, 0); drawInk();
+}
+function drawStroke(s, w, h) {
+  const g = gEl;
+  g.strokeStyle = s.c; g.lineWidth = 3; g.lineCap = "round"; g.lineJoin = "round";
+  g.beginPath(); g.moveTo(s.p[0][0] * w, s.p[0][1] * h);
+  s.p.forEach(p => g.lineTo(p[0] * w, p[1] * h));
+  if (s.p.length === 1) g.lineTo(s.p[0][0] * w + 0.1, s.p[0][1] * h);
+  g.stroke();
+}
+function drawInk() {
+  if (!cvEl || !document.body.contains(cvEl)) return;
+  const d = window.devicePixelRatio || 1, w = cvEl.width / d, h = cvEl.height / d;
+  gEl.clearRect(0, 0, w, h);
+  if (baseImg) gEl.drawImage(baseImg, 0, 0, w, h);
+  strokes.forEach(s => drawStroke(s, w, h));
+}
+function saveInk() {
+  try {
+    if (!baseImg && !strokes.length) localStorage.removeItem(INK_KEY);
+    else localStorage.setItem(INK_KEY, cvEl.toDataURL("image/png"));
+  } catch (e) { toast("筆跡太多，無法儲存"); }
+}
+function selectChip(kw) {
+  ui.sel = kw;
+  boardEl.querySelectorAll(".chip").forEach(c => c.classList.toggle("sel", c.dataset.kw === kw));
+  const sc = document.getElementById("selCtl"), sh = document.getElementById("selHint");
+  if (sc) sc.hidden = !kw; if (sh) sh.hidden = !!kw;
+}
+function initBoard() {
+  boardEl = document.getElementById("board"); cvEl = document.getElementById("ink"); gEl = cvEl.getContext("2d");
+  sizeInk();
+  const pt = e => { const r = cvEl.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+  cvEl.addEventListener("pointerdown", e => {
+    if (ui.mode !== "pen") return;
+    e.preventDefault(); cvEl.setPointerCapture(e.pointerId);
+    cur = { c: ui.color, p: [pt(e)] }; strokes.push(cur); drawInk();
+  });
+  cvEl.addEventListener("pointermove", e => {
+    if (!cur) return;
+    const d = window.devicePixelRatio || 1, w = cvEl.width / d, h = cvEl.height / d;
+    const a = cur.p[cur.p.length - 1], b = pt(e); cur.p.push(b);
+    gEl.strokeStyle = cur.c; gEl.lineWidth = 3; gEl.lineCap = "round";
+    gEl.beginPath(); gEl.moveTo(a[0] * w, a[1] * h); gEl.lineTo(b[0] * w, b[1] * h); gEl.stroke();
+  });
+  const end = () => { if (cur) { cur = null; saveInk(); } };
+  cvEl.addEventListener("pointerup", end); cvEl.addEventListener("pointercancel", end);
+
+  boardEl.addEventListener("pointerdown", e => {
+    if (ui.mode !== "move") return;
+    const ch = e.target.closest(".chip");
+    if (!ch) { selectChip(null); return; }
+    e.preventDefault(); selectChip(ch.dataset.kw);
+    drag = { it: S.canvas.find(x => x.kw === ch.dataset.kw), el: ch };
+    ch.setPointerCapture(e.pointerId);
+  });
+  boardEl.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const r = boardEl.getBoundingClientRect();
+    drag.it.x = clamp((e.clientX - r.left) / r.width, 0.02, 0.98);
+    drag.it.y = clamp((e.clientY - r.top) / r.height, 0.03, 0.97);
+    drag.el.style.left = drag.it.x * 100 + "%"; drag.el.style.top = drag.it.y * 100 + "%";
+  });
+  const stop = () => { if (drag) { drag = null; save(); } };
+  boardEl.addEventListener("pointerup", stop); boardEl.addEventListener("pointercancel", stop);
+}
+window.addEventListener("resize", sizeInk);
+
+/* ===================== 路由與繪製 ===================== */
+function parse() {
+  const h = decodeURIComponent(location.hash.replace(/^#\/?/, "")).split("/").filter(Boolean);
+  if (h[0] === "kw") return { page: "kw" };
+  if (h[0] === "t" && T[h[1]]) {
+    const t = T[h[1]];
+    if (h[2] === "m") return MARKS[h[3]] ? { page: "level", t, lvl: +h[3] } : { page: "mastery", t };
+    if (h[2] === "u" && U[h[3]] && U[h[3]].topic === t)
+      return { page: "unit", t, u: U[h[3]], tab: ["cards", "examples", "quiz"].includes(h[4]) ? h[4] : "cards" };
+    return { page: "topic", t };
+  }
+  return { page: "home" };
+}
+function render(toTop) {
+  ctx = {}; ctxN = 0;
+  const p = parse(), app = document.getElementById("app");
+  const html = p.page === "kw" ? vKw()
+    : p.page === "topic" ? vTopic(p.t)
+    : p.page === "unit" ? vUnit(p.t, p.u, p.tab)
+    : p.page === "mastery" ? vMastery(p.t)
+    : p.page === "level" ? vLevel(p.t, p.lvl)
+    : vHome();
+  app.innerHTML = html;
+  if (p.page === "kw") initBoard(); else cvEl = null;
+  if (toTop) window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", () => { ui.flip = null; render(true); });
+
+/* ===================== 按鈕動作 ===================== */
+const actions = {
+  go: el => { location.hash = el.dataset.to; },
+  flip: el => {
+    const id = el.dataset.id, c = C[id];
+    if (ui.flip === id) ui.flip = null;
+    else {
+      ui.flip = id;
+      if (!S.viewed[id]) {
+        S.viewed[id] = true;
+        const u = c.unit;
+        if (!S.read[u.id] && u.cards.every(x => S.viewed[x.id])) { S.read[u.id] = true; toast("觀念卡已全部看過，自動標為已讀"); }
+        save();
+      }
+    }
+    render();
+  },
+  step: el => {
+    const u = U[el.dataset.u], n = u.cards.length;
+    ui.pos[u.id] = ((ui.pos[u.id] || 0) + +el.dataset.d + n) % n; ui.flip = null; render();
+  },
+  mark: el => {
+    const id = el.dataset.id, v = +el.dataset.v;
+    if (S.marks[id] === v) delete S.marks[id]; else S.marks[id] = v;
+    save(); render();
+  },
+  read: el => {
+    const id = el.dataset.u;
+    if (S.read[id]) delete S.read[id]; else S.read[id] = true;
+    save(); render();
+  },
+  sort: el => { S.sort[el.dataset.t] = el.dataset.m; save(); render(); },
+  reveal: el => { ui.reveal[el.dataset.k] = !ui.reveal[el.dataset.k]; render(); },
+  open: el => { ui.open[el.dataset.id] = !ui.open[el.dataset.id]; render(); },
+  ans: el => {
+    const q = Q[el.dataset.q], c = +el.dataset.c, store = el.dataset.s === "m" ? ui.mqAns : S.quiz;
+    store[q.id] = { choice: c, correct: c === q.answer };
+    if (el.dataset.s !== "m") save();
+    render();
+  },
+  retry: el => {
+    const store = el.dataset.s === "m" ? ui.mqAns : S.quiz;
+    delete store[el.dataset.q]; if (el.dataset.s !== "m") save(); render();
+  },
+  retryAll: el => { U[el.dataset.u].quiz.forEach(q => delete S.quiz[q.id]); save(); render(true); },
+  mq: el => {
+    const t = T[el.dataset.t], lvl = +el.dataset.l;
+    const pool = Object.values(Q).filter(q => q.unit.topic === t && q.cards.some(id => S.marks[id] === lvl));
+    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    const ids = pool.slice(0, 5).map(q => q.id);
+    ids.forEach(id => delete ui.mqAns[id]);
+    ui.mq[t.id + "-" + lvl] = ids; render();
+  },
+  ask: el => {
+    const ta = el.closest(".ask").querySelector("textarea");
+    copyText(buildPrompt(ctx[el.dataset.k], ta.value.trim()));
+  },
+  /* 畫布 */
+  mode: el => { ui.mode = el.dataset.m; if (ui.mode === "pen") ui.sel = null; render(); },
+  color: el => { ui.color = el.dataset.c; render(); },
+  addKw: el => {
+    const id = el.dataset.k;
+    if (!S.canvas.some(x => x.kw === id)) {
+      S.canvas.push({ kw: id, x: 0.5 + (Math.random() - 0.5) * 0.3, y: 0.5 + (Math.random() - 0.5) * 0.3, scale: 1 });
+      save();
+    }
+    ui.mode = "move"; ui.sel = id; render();
+  },
+  kwScale: el => {
+    const it = S.canvas.find(x => x.kw === ui.sel); if (!it) return;
+    it.scale = clamp(Math.round((it.scale + +el.dataset.d) * 10) / 10, 0.6, 3); save();
+    const ch = boardEl.querySelector(`.chip[data-kw="${it.kw}"]`); if (ch) ch.style.setProperty("--s", it.scale);
+  },
+  kwDel: () => { S.canvas = S.canvas.filter(x => x.kw !== ui.sel); ui.sel = null; save(); render(); },
+  undo: () => {
+    if (!strokes.length) { toast(baseImg ? "只能復原這次開啟後畫的筆跡" : "沒有可以復原的筆跡"); return; }
+    strokes.pop(); drawInk(); saveInk();
+  },
+  clearInk: () => {
+    if (!confirm("確定要清空畫布上的所有筆跡嗎？（關鍵字會保留）")) return;
+    baseImg = null; strokes = []; drawInk(); saveInk();
+  },
+  /* 進度管理 */
+  export: () => {
+    let ink = null; try { ink = localStorage.getItem(INK_KEY); } catch (e) {}
+    const blob = new Blob([JSON.stringify({ app: "kaodian", version: 1, progress: S, ink })], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "kaodian-progress.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast("已下載 kaodian-progress.json");
+  },
+  import: () => document.getElementById("file").click(),
+  reset: () => {
+    if (!confirm("確定要清除所有學習進度與畫布嗎？此動作無法復原。")) return;
+    S = blank(); save(); baseImg = null; strokes = [];
+    try { localStorage.removeItem(INK_KEY); } catch (e) {}
+    ui.mq = {}; ui.mqAns = {}; render(true); toast("進度已重設");
+  }
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]");
+  if (el && actions[el.dataset.act]) actions[el.dataset.act](el, e);
+});
+document.getElementById("file").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = "";
+  if (!f) return;
+  try {
+    const d = JSON.parse(await f.text());
+    if (!d || d.app !== "kaodian" || !d.progress) throw new Error("bad");
+    S = Object.assign(blank(), d.progress); save();
+    strokes = []; baseImg = null;
+    if (d.ink) {
+      localStorage.setItem(INK_KEY, d.ink);
+      const im = new Image(); im.onload = () => { baseImg = im; drawInk(); }; im.src = d.ink;
+    } else localStorage.removeItem(INK_KEY);
+    render(true); toast("已匯入進度");
+  } catch (err) { toast("檔案格式不正確，無法匯入"); }
+});
+
+render(true);
+</script>
+</body>
+</html>
